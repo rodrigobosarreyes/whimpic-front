@@ -1,0 +1,36 @@
+@import "../../../../assets/styles/variables";
+
+.btn {
+	color: inherit;
+	border: none;
+	cursor: pointer;
+	outline: inherit;
+
+  padding: 7px 27px;
+  border-radius: 5px;
+  background-color: $primaryLight;
+  font-size: $fontSizeNormal;
+  transition: .2s;
+}
+
+.outline {
+  background: none;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn:hover {
+  // background: white;
+  // color: $orange;
+  // border: 1px solid white;
+}
+
+.outline:hover {
+  background: white;
+  color: $secondary;
+}
+
+.sm {
+  font-size: $fontSizeSmall;
+  padding: 7px 20px;
+}
