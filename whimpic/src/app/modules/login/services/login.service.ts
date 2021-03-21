@@ -1,14 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private authService: AuthService) { }
 
   login(username: string, passwd: string, remember: boolean) {
-    return this.http.post('api/token/', {username: username, password: passwd});
+    this.authService.login({username: username, password: passwd})
+      .subscribe( success => {
+        if (success) {
+          alert('yaaayy');
+        }
+      });
   }
 }

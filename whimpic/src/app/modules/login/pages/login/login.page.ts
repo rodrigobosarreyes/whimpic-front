@@ -20,8 +20,7 @@ export class LoginPage implements OnInit {
   onClickLogin(event) {
     console.log(this.usernameInput.text);
     console.log(this.passwdInput.text);
-    this.loginService.login(this.usernameInput.text, this.passwdInput.text, false)
-      .subscribe(console.log);
+    this.loginService.login(this.usernameInput.text, this.passwdInput.text, false);
     return false;
   }
 
