@@ -15,7 +15,7 @@
       <div class="wp-row">
         <div class="wp-col">
           <div class="custom-control custom-checkbox mb-2">
-            <input type="checkbox" class="custom-control-input" id="remember" [checked]="remember">
+            <input type="checkbox" class="custom-control-input" id="remember" (change)="remember = !remember">
             <label class="custom-control-label" for="remember">Remember account</label>
           </div>
         </div>

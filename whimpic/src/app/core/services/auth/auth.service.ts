@@ -76,7 +76,12 @@ export class AuthService {
   }
 
   getJwtToken() {
-    return localStorage.getItem(this.JWT_TOKEN);
+    const localToken = localStorage.getItem(this.JWT_TOKEN);
+    if (!!localToken) {
+      return localToken;
+    }
+    const sessionToken = sessionStorage.getItem(this.JWT_TOKEN);
+    return sessionToken;
   }
 
   private getRefreshToken() {
