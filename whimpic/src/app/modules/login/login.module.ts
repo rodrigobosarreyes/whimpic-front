@@ -10,6 +10,7 @@ import { AuthGuard } from 'src/app/core/guards/auth/auth.guard';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/core/interceptors/token/token.interceptor';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TokenInterceptor } from 'src/app/core/interceptors/token/token.intercep
     CommonModule,
     LoginRoutingModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule
   ],
   providers: [
     AuthGuard,

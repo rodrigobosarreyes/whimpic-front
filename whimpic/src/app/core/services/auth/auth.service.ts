@@ -15,10 +15,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: {username: string, password: string}): Observable<boolean> {
+  login(user: {username: string, password: string}, saveLocal: boolean): Observable<boolean> {
     return this.http.post<any>(this.END_POINT_URL, user)
       .pipe(
-        tap((tokens: Token) => this.doLoginUser(user.username, tokens)),
+        tap((tokens: Token) => this.doLoginUser(user.username, tokens, saveLocal)),
         mapTo(true),
         catchError(error => {
           alert(error.error.detail);
@@ -27,14 +27,19 @@ export class AuthService {
       )
   }
 
-  doLoginUser(username: string, tokens: Token): void {
+  doLoginUser(username: string, tokens: Token, saveLocal: boolean): void {
     this.loggedUser = username;
-    this.storeTokens(tokens);
+    this.storeTokens(tokens, saveLocal);
   }
 
-  storeTokens(tokens: Token): void {
-    localStorage.setItem(this.JWT_TOKEN, tokens.access);
-    localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
+  storeTokens(tokens: Token, saveLocal: boolean): void {
+    if (saveLocal) {
+      localStorage.setItem(this.JWT_TOKEN, tokens.access);
+      localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
+    } else {
+      sessionStorage.setItem(this.JWT_TOKEN, tokens.access);
+      sessionStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
+    }
   }
 
   logout(): Observable<any> {
