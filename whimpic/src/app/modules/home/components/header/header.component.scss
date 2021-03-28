@@ -1,0 +1,28 @@
+header {
+  display: flex;
+  height: auto;
+  padding: 5px;
+  justify-content: space-between;
+  background-color: black;
+  color: white;
+  font-family: 'Alegreya', serif;
+  font-size: 19px;
+  font-weight: 500;
+  font-style: italic;
+
+  span {
+    margin: auto 0;
+    cursor: pointer;
+  } 
+
+  section {
+    margin: auto 0;
+    color: inherit;
+    font-size: 1.6rem;
+
+    fa-icon {
+      cursor: pointer;
+      padding-right: 7px;
+    }
+  }
+}
