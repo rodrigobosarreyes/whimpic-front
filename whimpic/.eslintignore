@@ -1,0 +1,7 @@
+package.json
+package-lock.json
+dist
+*.spec.ts
+test.ts
+main.ts
+polyfills.ts
