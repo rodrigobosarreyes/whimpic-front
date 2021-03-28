@@ -9,8 +9,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'whimpic';
 
-  constructor(private translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+  constructor(translate: TranslateService) {
+    translate.setDefaultLang('es');
+    translate.use('es');
   }
 }

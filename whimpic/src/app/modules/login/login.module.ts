@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from 'src/app/core/interceptors/token/token.interceptor';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LoginRoutingModule,
     FormsModule,
     SharedModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    TranslateModule.forChild({extend: true})
   ],
   providers: [
     AuthGuard,

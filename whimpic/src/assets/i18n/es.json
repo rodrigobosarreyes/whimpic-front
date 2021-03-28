@@ -1,0 +1,17 @@
+{
+  "common": {
+    "appName": "Whimpic"
+  },
+  "login": {
+    "title": "Bienvenido a Whimpic",
+    "form": {
+      "username": "Username",
+      "password": "Contraseña",
+      "login": "Acceder",
+      "rememberAccount": "Recordar cuenta",
+      "forgotPassword": "Olvidé mi contraseña",
+      "signUp": "¡Regístrate ahora!",
+      "dontHaveAccount": "¿Aún no tienes cuenta?"
+    }
+  }
+}

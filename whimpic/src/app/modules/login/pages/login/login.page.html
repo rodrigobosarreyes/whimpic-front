@@ -1,29 +1,29 @@
 <div class="login-page">
   <div class="form-container">
     <fa-icon [icon]="faUsers"></fa-icon>
-    <h1>Welcome to Whimpic</h1>
+    <h1 translate>login.title</h1>
     <form class="mt-4 d-flex flex-column" (submit)="onClickLogin($event)">
       <div class="email-container mb-4">
-        <app-login-input inputId="email" inputType="text" label="Email" #usernameInput></app-login-input>
+        <app-login-input inputId="email" inputType="text" label="{{ 'login.form.username' | translate }}" #usernameInput></app-login-input>
       </div>
       <div class="passwd-container mb-2">
-        <app-login-input inputId="passwd" inputType="password" label="Password" #passwdInput></app-login-input>
+        <app-login-input inputId="passwd" inputType="password" label="{{ 'login.form.password' | translate }}" #passwdInput></app-login-input>
       </div>
       <div class="w-100 my-3">
-        <app-wp-button btnType="submit" (btnClick)="onClickLogin($event)">Log in</app-wp-button>
+        <app-wp-button btnType="submit" (btnClick)="onClickLogin($event)">{{ 'login.form.login' | translate }}</app-wp-button>
       </div>
       <div class="wp-row">
         <div class="wp-col">
           <div class="custom-control custom-checkbox mb-2">
             <input type="checkbox" class="custom-control-input" id="remember" (change)="remember = !remember">
-            <label class="custom-control-label" for="remember">Remember account</label>
+            <label class="custom-control-label" for="remember">{{ 'login.form.rememberAccount' | translate }}</label>
           </div>
         </div>
         <div class="wp-col">
-          <a href="">Forgot password</a>
+          <a href="">{{ 'login.form.forgotPassword' | translate }}</a>
         </div>
       </div>
     </form>
   </div>
-  <p class="mt-3">Don't have account? <a href="">Sign up now!</a></p>
+  <p class="mt-3">{{ 'login.form.dontHaveAccount' | translate }} <a href="">{{ 'login.form.signUp' | translate }}</a></p>
 </div>
