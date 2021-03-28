@@ -5,3 +5,4 @@ dist
 test.ts
 main.ts
 polyfills.ts
+node_modules
