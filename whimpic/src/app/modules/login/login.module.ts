@@ -13,7 +13,6 @@ import { TokenInterceptor } from 'src/app/core/interceptors/token/token.intercep
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TranslateModule } from '@ngx-translate/core';
 
-
 @NgModule({
   declarations: [LoginPage, LoginInputComponent],
   imports: [
@@ -22,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     SharedModule,
     FontAwesomeModule,
-    TranslateModule.forChild({extend: true})
+    TranslateModule.forChild({ extend: true })
   ],
   providers: [
     AuthGuard,
@@ -34,4 +33,4 @@ import { TranslateModule } from '@ngx-translate/core';
     }
   ]
 })
-export class LoginModule { }
+export class LoginModule {}

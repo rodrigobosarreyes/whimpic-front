@@ -6,18 +6,14 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./wp-button.component.scss']
 })
 export class WpButtonComponent implements OnInit {
-
   @Input() btnType: string;
   @Input() btnStyle: string[] = [];
 
-  @Output() btnClick = new EventEmitter<any>()
+  @Output() btnClick = new EventEmitter<Event>();
 
   btnClasses = ['btn'];
 
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.btnClasses.push(...this.btnStyle);
   }
-
 }

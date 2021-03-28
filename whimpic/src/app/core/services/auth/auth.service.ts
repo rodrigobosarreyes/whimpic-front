@@ -7,24 +7,27 @@ import { tap, mapTo, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly END_POINT_URL = 'api/token/';
   private loggedUser: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  login(user: {username: string, password: string}, saveLocal: boolean): Observable<boolean> {
-    return this.http.post<any>(this.END_POINT_URL, user)
-      .pipe(
-        tap((tokens: Token) => this.doLoginUser(user.username, tokens, saveLocal)),
-        mapTo(true),
-        catchError(error => {
-          alert(error.error.detail);
-          return of(false)
-        })
-      )
+  login(
+    user: { username: string; password: string },
+    saveLocal: boolean
+  ): Observable<boolean> {
+    return this.http.post<Token>(this.END_POINT_URL, user).pipe(
+      tap((tokens: Token) =>
+        this.doLoginUser(user.username, tokens, saveLocal)
+      ),
+      mapTo(true),
+      catchError((error) => {
+        alert(error.error.detail);
+        return of(false);
+      })
+    );
   }
 
   doLoginUser(username: string, tokens: Token, saveLocal: boolean): void {
@@ -43,11 +46,12 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post<any>('', {refreshToken: this.getRefreshToken()})
+    return this.http
+      .post<any>('', { refreshToken: this.getRefreshToken() })
       .pipe(
         tap(() => this.doLogoutUser()),
         mapTo(true),
-        catchError(error => {
+        catchError((error) => {
           alert(error.error.detail);
           return of(false);
         })
@@ -65,10 +69,11 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    return this.http.post<any>(`${this.END_POINT_URL}/refresh`, {refreshToken: this.getRefreshToken()})
-      .pipe(
-        tap((tokens: Token) => this.storeJwtToken(tokens.access))
-      );
+    return this.http
+      .post<any>(`${this.END_POINT_URL}/refresh`, {
+        refreshToken: this.getRefreshToken()
+      })
+      .pipe(tap((tokens: Token) => this.storeJwtToken(tokens.access)));
   }
 
   storeJwtToken(jwt): void {
@@ -77,7 +82,7 @@ export class AuthService {
 
   getJwtToken() {
     const localToken = localStorage.getItem(this.JWT_TOKEN);
-    if (!!localToken) {
+    if (localToken) {
       return localToken;
     }
     const sessionToken = sessionStorage.getItem(this.JWT_TOKEN);

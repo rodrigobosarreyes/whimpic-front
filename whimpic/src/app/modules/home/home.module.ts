@@ -6,13 +6,8 @@ import { HomePage } from './pages/home/home.page';
 import { HeaderComponent } from './components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 @NgModule({
   declarations: [HomePage, HeaderComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    FontAwesomeModule
-  ]
+  imports: [CommonModule, HomeRoutingModule, FontAwesomeModule]
 })
-export class HomeModule { }
+export class HomeModule {}

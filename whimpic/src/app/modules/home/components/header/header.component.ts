@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { faSearch, faUserAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -6,18 +6,11 @@ import { faSearch, faUserAlt } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-
+export class HeaderComponent {
   faSearch = faSearch;
   faUserAlt = faUserAlt;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onClickLogo(): void {
+    // lol
   }
-
-  onClickLogo() {
-
-  }
-
 }
