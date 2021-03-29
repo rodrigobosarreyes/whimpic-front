@@ -1,0 +1,14 @@
+<header>
+  <span (click)="onClickLogo()">Whimpic</span>
+  <section>
+    <a routerLink="home" routerLinkActive="active">
+      <fa-icon [icon]="faHome" (click)="onClickIcon('home')"></fa-icon>
+    </a>
+    <a routerLink="user" routerLinkActive="active">
+      <fa-icon [icon]="faUserAlt" (click)="onClickIcon('user')"></fa-icon>
+    </a>
+    <a routerLink="search" routerLinkActive="active">
+      <fa-icon [icon]="faSearch" (click)="onClickIcon('search')"></fa-icon>
+    </a>
+  </section>
+</header>
