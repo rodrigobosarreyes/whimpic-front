@@ -15,14 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [LoginPage, LoginInputComponent],
-  imports: [
-    CommonModule,
-    LoginRoutingModule,
-    FormsModule,
-    SharedModule,
-    FontAwesomeModule,
-    TranslateModule.forChild({ extend: true })
-  ],
+  imports: [CommonModule, LoginRoutingModule, FormsModule, SharedModule, FontAwesomeModule, TranslateModule.forChild({ extend: true })],
   providers: [
     AuthGuard,
     AuthService,

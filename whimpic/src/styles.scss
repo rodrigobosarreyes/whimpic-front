@@ -15,9 +15,6 @@ body {
   font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
-
 a {
   color: $secondary;
 }
@@ -25,3 +22,5 @@ a {
 a:hover {
   color: $secondaryDark;
 }
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

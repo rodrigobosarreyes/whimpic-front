@@ -1,0 +1,30 @@
+@import '../../../../assets/styles/variables';
+
+.manga-card {
+  // display: inline-block;
+  width: 120px;
+  height: 175px;
+  margin-right: 18px;
+  background-color: $primaryLight;
+
+  img {
+    padding: 5px;
+    width: 100%;
+    height: 135px;
+    cursor: pointer;
+  }
+
+  p {
+    margin-bottom: 0;
+    padding-left: 5px;
+    color: white;
+    font-size: 1.024rem;
+    font-weight: normal;
+  }
+}
+
+::ng-deep ngb-rating {
+  color: $secondaryDark;
+  font-size: 1.5rem;
+  padding-left: 5px;
+}

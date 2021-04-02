@@ -13,5 +13,10 @@
       "signUp": "Sign up now!",
       "dontHaveAccount": "Don't have account?"
     }
+  },
+  "home": {
+    "section": {
+      "recommended": "Recommended"
+    }
   }
 }

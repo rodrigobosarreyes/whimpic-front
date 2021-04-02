@@ -1,0 +1,19 @@
+@import '../../../../../assets/styles/variables';
+
+.wp_manga__container {
+  
+}
+
+p {
+  color: $textHighlight;
+  font-size: 1.28rem;
+  font-weight: 400;
+}
+
+.wp_manga_container__content {
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  padding-top: 5px;
+  overflow: auto;
+}
