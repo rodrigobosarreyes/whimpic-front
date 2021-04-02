@@ -15,17 +15,6 @@ export class HeaderComponent {
   constructor(private router: Router) {}
 
   onClickLogo(): void {
-    // lol
-  }
-
-  onClickIcon(iconName: string): void {
-    switch (iconName) {
-      case 'home':
-        this.router.navigate(['/home']);
-        break;
-
-      default:
-        break;
-    }
+    this.router.navigate(['/home']);
   }
 }

@@ -1,0 +1,7 @@
+@import '../../../../../assets/styles/variables';
+
+main {
+  min-height: calc(100vh - #{$headerHeight});
+  padding-top: 5px;
+  background-color: $primary;
+}
