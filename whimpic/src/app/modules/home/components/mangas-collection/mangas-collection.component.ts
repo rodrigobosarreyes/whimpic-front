@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IMangaSuggestion } from '../../models/manga-suggestion.model';
 
 @Component({
   selector: 'app-mangas-collection',
@@ -7,4 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class MangasCollectionComponent {
   @Input() sectionTitle: string;
+  @Input() suggestions: IMangaSuggestion[];
 }

@@ -10,12 +10,12 @@
   </ngb-carousel>
   </section>
   <section class="wp-collection">
-    <app-mangas-collection sectionTitle="home.section.recommended"></app-mangas-collection>
+    <app-mangas-collection [suggestions]="lastSuggestions$ | async" sectionTitle="home.section.recommended"></app-mangas-collection>
   </section>
-  <section class="wp-collection">
+  <!-- <section class="wp-collection">
     <app-mangas-collection sectionTitle="home.section.action"></app-mangas-collection>
   </section>
   <section class="wp-collection">
     <app-mangas-collection sectionTitle="home.section.drama"></app-mangas-collection>
-  </section>
+  </section> -->
 </main>
