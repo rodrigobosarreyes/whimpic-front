@@ -17,12 +17,8 @@ export class LoginPage {
 
   constructor(private loginService: LoginService) {}
 
-  onClickLogin(event: Event): boolean {
-    this.loginService.login(
-      this.usernameInput.text,
-      this.passwdInput.text,
-      this.remember
-    );
+  onClickLogin(): boolean {
+    this.loginService.login(this.usernameInput.text, this.passwdInput.text, this.remember);
     return false;
   }
 }

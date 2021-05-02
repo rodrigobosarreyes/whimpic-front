@@ -1,10 +1,10 @@
-<header>
+<header *ngIf="validRoute">
   <span (click)="onClickLogo()">Whimpic</span>
   <section>
     <a routerLink="home" routerLinkActive="active">
       <fa-icon [icon]="faHome"></fa-icon>
     </a>
-    <a routerLink="user" routerLinkActive="active">
+    <a href="#" (click)="onClickLogout()">
       <fa-icon [icon]="faUserAlt"></fa-icon>
     </a>
     <a routerLink="search" routerLinkActive="active">

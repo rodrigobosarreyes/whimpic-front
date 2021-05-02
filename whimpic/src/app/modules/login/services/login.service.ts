@@ -9,12 +9,14 @@ export class LoginService {
   constructor(private authService: AuthService, private router: Router) {}
 
   login(username: string, passwd: string, remember: boolean): void {
-    this.authService
-      .login({ username: username, password: passwd }, remember)
-      .subscribe((success) => {
-        if (success) {
-          this.router.navigate(['/home']);
-        }
-      });
+    this.authService.login({ username: username, password: passwd }, remember).subscribe((success) => {
+      if (success) {
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe(() => this.router.navigate(['/']));
   }
 }

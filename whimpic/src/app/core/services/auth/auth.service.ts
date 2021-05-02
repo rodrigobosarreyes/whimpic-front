@@ -14,14 +14,9 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(
-    user: { username: string; password: string },
-    saveLocal: boolean
-  ): Observable<boolean> {
+  login(user: { username: string; password: string }, saveLocal: boolean): Observable<boolean> {
     return this.http.post<Token>(this.END_POINT_URL, user).pipe(
-      tap((tokens: Token) =>
-        this.doLoginUser(user.username, tokens, saveLocal)
-      ),
+      tap((tokens: Token) => this.doLoginUser(user.username, tokens, saveLocal)),
       mapTo(true),
       catchError((error) => {
         alert(error.error.detail);
@@ -46,16 +41,15 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http
-      .post<any>('', { refreshToken: this.getRefreshToken() })
-      .pipe(
-        tap(() => this.doLogoutUser()),
-        mapTo(true),
-        catchError((error) => {
-          alert(error.error.detail);
-          return of(false);
-        })
-      );
+    return of('').pipe(
+      tap(() => this.doLogoutUser()),
+      mapTo(true),
+      catchError((error) => {
+        console.error(error);
+        alert(error.error.detail);
+        return of(false);
+      })
+    );
   }
 
   doLogoutUser(): void {
@@ -66,6 +60,8 @@ export class AuthService {
   removeTokens(): void {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.REFRESH_TOKEN);
+    sessionStorage.removeItem(this.JWT_TOKEN);
+    sessionStorage.removeItem(this.REFRESH_TOKEN);
   }
 
   refreshToken(): Observable<any> {
