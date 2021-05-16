@@ -37,7 +37,7 @@
       </div>
     </div>
   </section>
-  <section>
+  <section *ngIf="volumeSelected">
     <article *ngFor="let episode of volumeSelected.episodes" class="episode">
       <div class="img cover" (click)="onClickEpisode(volumeSelected.season.id, episode)">
         <img src="{{ episode.cover }}" alt="">

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMangaEpisode, IMangaSeason } from '../../models/manga.model';
 
@@ -7,7 +7,7 @@ import { IMangaEpisode, IMangaSeason } from '../../models/manga.model';
   templateUrl: './episode-navbar.component.html',
   styleUrls: ['./episode-navbar.component.scss']
 })
-export class EpisodeNavbarComponent implements OnInit {
+export class EpisodeNavbarComponent {
   @Input() chapters: IMangaEpisode[];
   @Input() volumes: IMangaSeason[];
   @Input() currentVolume: IMangaSeason;
@@ -17,18 +17,16 @@ export class EpisodeNavbarComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
-
-  onClickLogo() {
+  onClickLogo(): void {
     this.router.navigate(['/home']);
   }
 
-  onClickChapter(scene) {
+  onClickChapter(scene: IMangaEpisode): void {
     this.currentChapter = scene;
     this.changeChapter.emit(scene);
   }
 
-  onClickVolume(volume) {
+  onClickVolume(volume: IMangaSeason): void {
     this.currentVolume = volume;
     this.changeVolume.emit(volume);
   }

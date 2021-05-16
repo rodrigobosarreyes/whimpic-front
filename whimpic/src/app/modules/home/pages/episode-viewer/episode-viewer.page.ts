@@ -12,8 +12,6 @@ export class EpisodeViewerPage implements OnInit {
   currentScene = 1;
   episode: IMangaEpisode;
   mangaId: number;
-  volumeId: number;
-  episodeId: number;
   episodes: IMangaEpisode[] = [];
   volumes: IMangaSeason[] = [];
   volume: IMangaSeason = {} as IMangaSeason;
@@ -26,32 +24,22 @@ export class EpisodeViewerPage implements OnInit {
 
   ngOnInit(): void {
     this.mangaId = this.route.params.mangaId;
-    this.volumeId = Number(this.route.params.volumeId);
+    const volumeId = Number(this.route.params.volumeId);
     this.currentScene = Number(this.route.params.scene);
-    this.episodeId = Number(this.route.params.episodeId);
+    const episodeId = Number(this.route.params.episodeId);
 
     this.mangaService.getManga(this.mangaId).subscribe((manga) => (this.mangaName = manga.originalName.toLowerCase().replace('!', '')));
 
-    this.mangaService.getMangaEpisode(this.volumeId, this.episodeId).subscribe((s) => {
+    this.mangaService.getMangaEpisode(volumeId, episodeId).subscribe((s) => {
       this.episode = s;
     });
-    // this.mangaService.getMangaVolumes(this.mangaId, false)
-    //   .subscribe( v => {
-    //     this.volumes = v;
-    //     this.volume = v.find( _v => _v.uid === this.volumeId );
-    //     // this.volume = v[0];
-    //   });
-    // this.mangaService.getVolumeChapters(this.volumeId)
-    //   .subscribe( e => {
-    //     this.episodes = e;
-    //   });
     this.mangaService.getSeasonEpisodes(this.mangaId, false).subscribe((volumes: IMangaSeason[]) => {
       this.volumes = volumes;
       if (this.volumes && this.volumes.length > 0) {
-        this.volume = volumes.find((_v) => _v.id === this.volumeId);
+        this.volume = volumes.find((_v) => _v.id === volumeId);
       }
     });
-    this.mangaService.getMangaEpisodes(this.volumeId).subscribe((epis: IMangaEpisode[]) => {
+    this.mangaService.getMangaEpisodes(volumeId).subscribe((epis: IMangaEpisode[]) => {
       this.episodes = epis;
     });
   }
@@ -66,14 +54,16 @@ export class EpisodeViewerPage implements OnInit {
     if (this.currentScene < this.episode.pagesCount) {
       this.currentScene += 1;
     } else {
-      if (this.episode.episodeNumber === this.episodes.length) {
-        // const index = this.volumes.findIndex( v => v.uid === this.volume.uid);
-        // this.onChangeVolume(this.volumes[index + 1]);
+      if (this.episode.episodeNumber === this.episodes[this.episodes.length - 1].episodeNumber) {
+        const index = this.volumes.findIndex((v) => v.seasonNumber === this.volume.seasonNumber + 1);
+        if (index > -1) {
+          this.onChangeVolume(this.volumes[index]);
+        }
       } else {
         // Next chapter
         this.currentScene = 1;
-        this.episodeId += 1;
-        this.mangaService.getMangaEpisode(this.volumeId, this.episodeId).subscribe((s) => {
+        const nextEpisode = this.episodes.find((e) => e.episodeNumber === this.episode.episodeNumber + 1);
+        this.mangaService.getMangaEpisode(this.volume.id, nextEpisode.id).subscribe((s) => {
           this.episode = s;
         });
       }
