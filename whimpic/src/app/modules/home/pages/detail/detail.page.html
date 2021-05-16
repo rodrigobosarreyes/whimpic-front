@@ -1,0 +1,54 @@
+<app-home-header></app-home-header>
+<div class="manga-container" *ngIf="manga">
+  <section class="cover-container">
+    <div class="img-container">
+      <img src="{{ manga.cover }}" alt="Cover">
+    </div>
+    <button (click)="onClickRead()">Leer</button>
+  </section>
+  <section class="manga-detail">
+    <p class="name">{{manga.name}}</p>
+    <div class="rating-container">
+      <ngb-rating [rate]="manga.manga.rating" [readonly]="true" [max]="5"></ngb-rating>
+    </div>
+    <p class="author">{{ manga.manga.author.name }}</p>
+    <div class="extra-detail">
+      {{ manga.manga.createdAt | date: 'yyyy' }} - {{ manga.manga.finishedAt | date: 'yyyy' }} | {{ manga.manga.genre | translateMasterValue }} | {{ manga.seasonsCount }} Volúmenes
+    </div>
+    <p class="description">
+      {{ manga.description }}
+    </p>
+    <div class="publisher">
+      <span class="label">Editorial</span>
+      <span class="value">{{ manga.manga.publisher.name }}</span>
+    </div>
+    <div class="tags">
+      <span class="label">Tags</span>
+      <span class="value">{{ manga.manga.tags[0] | translateMasterValue }}</span>
+    </div>
+  </section>
+  <section class="volumes">
+    <div ngbDropdown class="d-inline-block" *ngIf="volumes && volumeSelected">
+      <button class="btn btn-outline-primary" id="volumes" ngbDropdownToggle>{{volumeSelected.season.seasonNumber}}: {{ volumeSelected.season.name }}</button>
+      <div ngbDropdownMenu aria-labelledby="volumes">
+        <ng-container *ngFor="let vol of volumes">
+          <button ngbDropdownItem (click)="onChangeSeason(vol)">{{vol.season.seasonNumber}}: {{ vol.season.name }}</button>
+        </ng-container>
+      </div>
+    </div>
+  </section>
+  <section>
+    <article *ngFor="let episode of volumeSelected.episodes" class="episode">
+      <div class="img cover" (click)="onClickEpisode(volumeSelected.season.id, episode)">
+        <img src="{{ episode.cover }}" alt="">
+      </div>
+      <div class="info">
+        <p class="name">{{episode.episodeNumber}}: {{ episode.name }}</p>
+        <p class="description">{{ episode.description }}</p>
+      </div>
+      <div class="icon">
+        
+      </div>
+    </article>
+  </section>
+</div>

@@ -2,7 +2,7 @@
   <p>{{ sectionTitle | translate }}</p>
   <div class="wp_manga_container__content">
     <ng-container *ngFor="let sug of suggestions">
-      <wp-manga-card [suggestion]="sug"></wp-manga-card>
+      <wp-manga-card [suggestion]="sug" (click)="onClickManga(sug)"></wp-manga-card>
     </ng-container>
   </div>
 </section>

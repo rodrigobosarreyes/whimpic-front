@@ -1,0 +1,21 @@
+<div class="episode-navbar">
+  <span class="logo" (click)="onClickLogo()">Whimpic</span>
+  <div class="col2">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="volumes" ngbDropdownToggle>{{ 'Temporada' }}: {{currentVolume.seasonNumber}}</button>
+      <div ngbDropdownMenu aria-labelledby="volumes">
+        <ng-container *ngFor="let vol of volumes">
+          <button ngbDropdownItem (click)="onClickVolume(vol)">{{ 'Temporada' }}: {{vol.seasonNumber}}</button>
+        </ng-container>
+      </div>
+    </div>
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="volumes" ngbDropdownToggle>{{ 'Ep' }}: {{currentVolume.seasonNumber}}</button>
+      <div ngbDropdownMenu aria-labelledby="volumes">
+        <ng-container *ngFor="let chap of chapters">
+          <button ngbDropdownItem (click)="onClickChapter(chap)">{{ 'Ep' }}: {{chap.episodeNumber}}</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

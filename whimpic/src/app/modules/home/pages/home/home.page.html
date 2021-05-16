@@ -1,4 +1,5 @@
 <main>
+  <app-home-header></app-home-header>
   <app-home-navbar></app-home-navbar>
   <section class="wp-carousel">
     <ngb-carousel *ngIf="images" [showNavigationArrows]="false">
@@ -10,7 +11,10 @@
   </ngb-carousel>
   </section>
   <section class="wp-collection">
-    <app-mangas-collection [suggestions]="lastSuggestions$ | async" sectionTitle="home.section.recommended"></app-mangas-collection>
+    <app-mangas-collection [suggestions]="lastSuggestions$ | async"
+    sectionTitle="home.section.recommended"
+    (clickManga)="onClickManga($event)"
+    ></app-mangas-collection>
   </section>
   <!-- <section class="wp-collection">
     <app-mangas-collection sectionTitle="home.section.action"></app-mangas-collection>

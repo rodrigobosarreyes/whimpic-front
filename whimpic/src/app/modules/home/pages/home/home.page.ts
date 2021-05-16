@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IMangaSuggestion } from '../../models/manga-suggestion.model';
 import { MangaService } from '../../services/manga.service';
@@ -13,9 +14,13 @@ export class HomePage implements OnInit {
 
   lastSuggestions$: Observable<IMangaSuggestion[]>;
 
-  constructor(private mangaService: MangaService) {}
+  constructor(private mangaService: MangaService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.lastSuggestions$ = this.mangaService.getMangaSuggestions('');
+  }
+
+  onClickManga(manga: IMangaSuggestion): void {
+    this.router.navigate(['detail', manga.mangaId], { relativeTo: this.route });
   }
 }

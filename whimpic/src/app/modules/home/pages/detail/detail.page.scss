@@ -1,0 +1,150 @@
+@import '../../../../../assets/styles/variables';
+
+.manga-container {
+  width: 100%;
+  min-height: calc(100vh - #{$headerHeight});
+  background-color: $primary;
+
+  .cover-container {
+    padding-top: 15px;
+    position: relative;
+    .img-container {
+      margin: 0 auto;
+      width: 190px;
+      height: 250px;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+    button {
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 95px);
+      width: 190px;
+      height: 32px;
+      background-color: $secondary;
+      border: 1px solid $secondary;
+      font-size: 1.6rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $secondaryLight;
+      }
+    }
+  }
+
+  .manga-detail {
+    padding-top: 15px;
+    padding: 15px 21px 0 21px;
+    color: white;
+
+    p.name {
+      font-size: 2rem;
+    }
+
+    .rating-container {
+      margin-top: -5px;
+      color: $secondaryDark;
+      font-size: 1.5rem;
+    }
+
+    p.author {
+      color: $textHighlight;
+      font-size: 1.28rem;
+    }
+
+    .extra-detail{
+      font-size: 1.024rem;
+      font-weight: 300;
+    }
+
+    p.description {
+      max-height: 100px;
+      overflow: auto;
+      padding-top: 4px;
+      padding-bottom: 4px;
+      font-size: 1.28rem;
+      font-weight: lighter;
+      text-align: justify;
+    }
+
+    .publisher,
+    .tags {
+      padding-top: 2px;
+      .label {
+        font-weight: normal;
+        &::after {
+          content: ":";
+        }
+      }
+      .value {
+        padding-left: 4px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .episode {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 96px;
+    margin: 3px 0;
+    padding: 5px;
+    background-color: $primaryLight;
+
+    .cover {
+      width: 72px;
+      height: 86px;
+      background-color: grey;
+      flex-shrink: 0;
+      cursor: pointer;
+      img {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .info {
+      height: 86px;
+      flex-grow: 1;
+      align-self: center;
+      padding: 0 5px;
+      overflow: auto;
+      color: white;
+      .name {
+        font-size: 1.28rem;
+      }
+      .description {
+        font-size: 1.024rem;
+      }
+    }
+
+    .icon {
+      width: 36px;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: white;
+    }
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+
+  section.volumes {
+    text-align: center;
+  }
+}
+
+.dropdown-container {
+  padding: 5px 21px;
+  height: 35px;
+}
+
+::ng-deep ngb-rating {
+  padding: 0;
+}

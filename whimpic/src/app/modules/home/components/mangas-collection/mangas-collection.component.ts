@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IMangaSuggestion } from '../../models/manga-suggestion.model';
 
 @Component({
@@ -9,4 +9,10 @@ import { IMangaSuggestion } from '../../models/manga-suggestion.model';
 export class MangasCollectionComponent {
   @Input() sectionTitle: string;
   @Input() suggestions: IMangaSuggestion[];
+
+  @Output() clickManga = new EventEmitter<IMangaSuggestion>();
+
+  onClickManga(manga: IMangaSuggestion): void {
+    this.clickManga.emit(manga);
+  }
 }

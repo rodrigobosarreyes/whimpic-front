@@ -1,0 +1,24 @@
+@import '../../../../../assets/styles/variables';
+
+.episode-navbar {
+  display: flex;
+  height: 36px;
+  padding: 5px;
+  align-items: center;
+  background-color: black;
+  color: white;
+  font-family: 'Alegreya', serif;
+  font-size: 19px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.col2 {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}

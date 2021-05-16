@@ -66,8 +66,8 @@ export class AuthService {
 
   refreshToken(): Observable<any> {
     return this.http
-      .post<any>(`${this.END_POINT_URL}/refresh`, {
-        refreshToken: this.getRefreshToken()
+      .post<any>(`${this.END_POINT_URL}refresh/`, {
+        refresh: this.getRefreshToken()
       })
       .pipe(tap((tokens: Token) => this.storeJwtToken(tokens.access)));
   }
@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   private getRefreshToken() {
-    return localStorage.getItem(this.REFRESH_TOKEN);
+    return localStorage.getItem(this.REFRESH_TOKEN) ? localStorage.getItem(this.REFRESH_TOKEN) : sessionStorage.getItem(this.REFRESH_TOKEN);
   }
 
   isLoggedIn() {

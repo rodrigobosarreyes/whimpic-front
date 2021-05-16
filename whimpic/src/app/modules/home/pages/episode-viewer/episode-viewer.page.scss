@@ -1,0 +1,29 @@
+.episode-body {
+  position: relative;
+  height: calc(100vh - 36px - 36px);
+  overflow-y: auto;
+  background-color: gray;
+  max-width: 100%;
+  text-align: center;
+  img {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 100%;
+    height: auto;
+  }
+  .previous {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .next {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    right: 0;
+  }
+}
