@@ -16,7 +16,10 @@
   },
   "home": {
     "section": {
-      "recommended": "Recomendados"
+      "recommended": "Recomendados",
+      "action": "Acción",
+      "fantasy": "Fantasía",
+      "continue": "Continúa"
     }
   }
 }

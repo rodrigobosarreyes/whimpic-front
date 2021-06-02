@@ -60,6 +60,7 @@ export interface IMangaEpisode {
   description: string;
   cover: string;
   pagesCount: number;
+  isFinished: boolean;
 }
 
 export interface ISeasonEpisode {

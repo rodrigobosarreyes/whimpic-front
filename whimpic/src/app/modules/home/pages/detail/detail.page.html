@@ -4,7 +4,7 @@
     <div class="img-container">
       <img src="{{ manga.cover }}" alt="Cover">
     </div>
-    <button (click)="onClickRead()">Leer</button>
+    <button (click)="onClickRead()">{{ lastEpisode ? 'Continuar' : 'Leer'}}</button>
   </section>
   <section class="manga-detail">
     <p class="name">{{manga.name}}</p>
@@ -29,14 +29,25 @@
   </section>
   <section class="volumes">
     <div ngbDropdown class="d-inline-block" *ngIf="volumes && volumeSelected">
-      <button class="btn btn-outline-primary" id="volumes" ngbDropdownToggle>{{volumeSelected.season.seasonNumber}}: {{ volumeSelected.season.name }}</button>
+      <button class="btn btn-outline-primary" id="volumes" ngbDropdownToggle>
+        <ng-container *ngTemplateOutlet="volumeNameTmpl; context: {$implicit: volumeSelected}"></ng-container>
+      </button>
       <div ngbDropdownMenu aria-labelledby="volumes">
         <ng-container *ngFor="let vol of volumes">
-          <button ngbDropdownItem (click)="onChangeSeason(vol)">{{vol.season.seasonNumber}}: {{ vol.season.name }}</button>
+          <button ngbDropdownItem (click)="onChangeSeason(vol)">
+            <ng-container *ngTemplateOutlet="volumeNameTmpl; context: {$implicit: vol}"></ng-container>
+          </button>
         </ng-container>
       </div>
     </div>
   </section>
+
+  <ng-template #volumeNameTmpl let-volume>
+    {{
+      volume.season.name ? volume.season.seasonNumber + ': ' + volume.season.name : 'Volúmen ' + volume.season.seasonNumber
+    }}
+  </ng-template>
+  
   <section *ngIf="volumeSelected">
     <article *ngFor="let episode of volumeSelected.episodes" class="episode">
       <div class="img cover" (click)="onClickEpisode(volumeSelected.season.id, episode)">
@@ -47,7 +58,9 @@
         <p class="description">{{ episode.description }}</p>
       </div>
       <div class="icon">
-        
+        <app-wp-button [btnStyle]="['outline', 'sm', 'no-padding']" (btnClick)="onClickEpisode(volumeSelected.season.id, episode)">
+          <fa-icon [icon]="episode.isFinished ? faCheck : faRead"></fa-icon>
+        </app-wp-button>
       </div>
     </article>
   </section>

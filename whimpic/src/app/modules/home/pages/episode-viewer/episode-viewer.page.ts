@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { IMangaEpisode, IMangaSeason } from '../../models/manga.model';
 import { MangaService } from '../../services/manga.service';
@@ -8,7 +8,7 @@ import { MangaService } from '../../services/manga.service';
   templateUrl: './episode-viewer.page.html',
   styleUrls: ['./episode-viewer.page.scss']
 })
-export class EpisodeViewerPage implements OnInit {
+export class EpisodeViewerPage implements OnInit, OnDestroy {
   currentScene = 1;
   episode: IMangaEpisode;
   mangaId: number;
@@ -45,12 +45,14 @@ export class EpisodeViewerPage implements OnInit {
   }
 
   onClickPrevious(): void {
+    this.smoothScroll();
     if (this.currentScene > 1) {
       this.currentScene -= 1;
     }
   }
 
   onClickNext(): void {
+    this.smoothScroll();
     if (this.currentScene < this.episode.pagesCount) {
       this.currentScene += 1;
     } else {
@@ -70,6 +72,17 @@ export class EpisodeViewerPage implements OnInit {
     }
   }
 
+  smoothScroll(): void {
+    const scrollToTop = window.setInterval(() => {
+      const pos = window.pageYOffset;
+      if (pos > 0) {
+        window.scrollTo(0, pos - 20); // how far to scroll on each step
+      } else {
+        window.clearInterval(scrollToTop);
+      }
+    }, 16);
+  }
+
   onChangeChapter(chapter): void {
     this.episode = chapter;
     this.currentScene = 1;
@@ -86,5 +99,11 @@ export class EpisodeViewerPage implements OnInit {
       this.episode = e[0];
       this.currentScene = 1;
     });
+  }
+
+  ngOnDestroy(): void {
+    const index = this.volumes.findIndex((v) => v.seasonNumber === this.volume.seasonNumber + 1);
+    const isFinished = index === -1;
+    this.mangaService.saveUserEpisodeViewed(this.mangaId, this.episode.id, isFinished, this.currentScene, this.volume.id).subscribe();
   }
 }

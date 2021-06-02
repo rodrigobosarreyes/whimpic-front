@@ -11,8 +11,26 @@
   </ngb-carousel>
   </section>
   <section class="wp-collection">
+    <app-mangas-collection [suggestions]="continueSuggestions$ | async"
+    sectionTitle="home.section.continue"
+    (clickManga)="onClickManga($event)"
+    ></app-mangas-collection>
+  </section>
+  <section class="wp-collection">
     <app-mangas-collection [suggestions]="lastSuggestions$ | async"
     sectionTitle="home.section.recommended"
+    (clickManga)="onClickManga($event)"
+    ></app-mangas-collection>
+  </section>
+  <section class="wp-collection">
+    <app-mangas-collection [suggestions]="actionSuggestions$ | async"
+    sectionTitle="home.section.action"
+    (clickManga)="onClickManga($event)"
+    ></app-mangas-collection>
+  </section>
+  <section class="wp-collection">
+    <app-mangas-collection [suggestions]="fantasySuggestions$ | async"
+    sectionTitle="home.section.fantasy"
     (clickManga)="onClickManga($event)"
     ></app-mangas-collection>
   </section>

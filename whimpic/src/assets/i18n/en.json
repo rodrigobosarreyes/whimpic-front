@@ -16,7 +16,10 @@
   },
   "home": {
     "section": {
-      "recommended": "Recommended"
+      "recommended": "Recommended",
+      "action": "Acción",
+      "drama": "Fantasy",
+      "continue": "Continue"
     }
   }
 }
