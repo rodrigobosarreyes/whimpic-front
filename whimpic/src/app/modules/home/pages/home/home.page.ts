@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { IMangaSuggestion } from '../../models/manga-suggestion.model';
 import { MangaService } from '../../services/manga.service';
 
@@ -28,5 +29,11 @@ export class HomePage implements OnInit {
 
   onClickManga(manga: IMangaSuggestion): void {
     this.router.navigate(['detail', manga.mangaId], { relativeTo: this.route });
+  }
+
+  onClickMangaContinue(manga: IMangaSuggestion): void {
+    this.mangaService.getUserEpisodeViewed(manga.mangaId).subscribe((last) => {
+      this.router.navigate(['episode', manga.mangaId, last.season, last.episode, last.page], { relativeTo: this.route });
+    });
   }
 }

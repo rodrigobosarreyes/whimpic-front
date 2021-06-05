@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Subscription, timer } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { IMangaEpisode, IMangaSeason } from '../../models/manga.model';
 import { MangaService } from '../../services/manga.service';
 
@@ -16,9 +18,11 @@ export class EpisodeViewerPage implements OnInit, OnDestroy {
   volumes: IMangaSeason[] = [];
   volume: IMangaSeason = {} as IMangaSeason;
   mangaName: string;
+  loading: boolean;
   private route: ActivatedRouteSnapshot;
+  private timerSub: Subscription;
 
-  constructor(private mangaService: MangaService, activatedRoute: ActivatedRoute) {
+  constructor(private mangaService: MangaService, activatedRoute: ActivatedRoute, private authService: AuthService) {
     this.route = activatedRoute.snapshot;
   }
 
@@ -41,6 +45,12 @@ export class EpisodeViewerPage implements OnInit, OnDestroy {
     });
     this.mangaService.getMangaEpisodes(volumeId).subscribe((epis: IMangaEpisode[]) => {
       this.episodes = epis;
+    });
+
+    const oneSecond = 1000;
+    const oneMinute = oneSecond * 60;
+    this.timerSub = timer(oneSecond, oneMinute * 4).subscribe(() => {
+      this.authService.verifyToken().subscribe();
     });
   }
 
@@ -105,5 +115,6 @@ export class EpisodeViewerPage implements OnInit, OnDestroy {
     const index = this.volumes.findIndex((v) => v.seasonNumber === this.volume.seasonNumber + 1);
     const isFinished = index === -1;
     this.mangaService.saveUserEpisodeViewed(this.mangaId, this.episode.id, isFinished, this.currentScene, this.volume.id).subscribe();
+    this.timerSub.unsubscribe();
   }
 }

@@ -1,0 +1,53 @@
+@import '../../../../assets/styles/variables';
+
+$radius: 2rem;
+$animation: cubic-bezier(.76, 0, .24, 1);
+
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+.loading__dot {
+  height: 2em;
+  width: 2em;
+  border-radius: $radius;
+  display: inline-block;
+  margin: .5rem;
+  animation: loading 6s $animation infinite;
+  border: none;
+}
+
+@keyframes loading {
+  0%, 100% {
+    background-color: $secondaryLight;
+    height: 2em;
+  }
+
+  20% {
+    height: 10em;
+  }
+  40% {
+    height: 2em;
+  }
+  50% {
+    background-color: $secondaryDark;
+    height: 10em;
+  }
+  70% {
+    height: 2em;
+  }
+  90% {
+    height: 10em;
+  }
+}
+
+@for $i from 1 through 5 {
+  .loading__dot:nth-child(#{$i}) {
+    animation-delay: #{$i * .2}s;
+  }
+}

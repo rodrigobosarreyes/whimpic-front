@@ -1,8 +1,16 @@
 <section class="wp_manga__container">
   <p>{{ sectionTitle | translate }}</p>
   <div class="wp_manga_container__content">
-    <ng-container *ngFor="let sug of suggestions">
-      <wp-manga-card [suggestion]="sug" (click)="onClickManga(sug)"></wp-manga-card>
-    </ng-container>
+    <div class="mangas__container" #mangasContainer (scroll)="onScrollContainer()">
+      <ng-container *ngFor="let sug of suggestions">
+        <wp-manga-card [suggestion]="sug" (click)="onClickManga(sug)"></wp-manga-card>
+      </ng-container>
+    </div>
+    <div [hidden]="!showLeft" class="scroll-control previous" (click)="onClickNavigator('left')">
+      <fa-icon [icon]="faArrowLeft"></fa-icon>
+    </div>
+    <div [hidden]="!showRight" class="scroll-control next" (click)="onClickNavigator('right')">
+      <fa-icon [icon]="faArrowRight"></fa-icon>
+    </div>
   </div>
 </section>

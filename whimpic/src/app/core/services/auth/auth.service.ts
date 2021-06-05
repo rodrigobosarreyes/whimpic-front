@@ -10,11 +10,14 @@ export class AuthService {
   private readonly JWT_TOKEN = 'JWT_TOKEN';
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly END_POINT_URL = 'api/token/';
+  private readonly VERIFY_URL = `${this.END_POINT_URL}verify/`;
   private loggedUser: string;
+  private saveLocal: boolean;
 
   constructor(private http: HttpClient) {}
 
   login(user: { username: string; password: string }, saveLocal: boolean): Observable<boolean> {
+    this.saveLocal = saveLocal;
     return this.http.post<Token>(this.END_POINT_URL, user).pipe(
       tap((tokens: Token) => this.doLoginUser(user.username, tokens, saveLocal)),
       mapTo(true),
@@ -78,11 +81,8 @@ export class AuthService {
 
   getJwtToken() {
     const localToken = localStorage.getItem(this.JWT_TOKEN);
-    if (localToken) {
-      return localToken;
-    }
     const sessionToken = sessionStorage.getItem(this.JWT_TOKEN);
-    return sessionToken;
+    return localToken ? localToken : sessionToken;
   }
 
   private getRefreshToken() {
@@ -91,6 +91,10 @@ export class AuthService {
 
   isLoggedIn() {
     return !!this.getJwtToken();
+  }
+
+  verifyToken() {
+    return this.http.post<any>(this.VERIFY_URL, { token: this.getJwtToken() });
   }
 }
 
