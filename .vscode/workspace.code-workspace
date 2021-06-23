@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+  ],
+  "settings": {
+    "prettier.configPath": ".prettierrc.json",
+    "terminal.integrated.cwd": "../whimpic-front/whimpic",
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Monoid",
+    "editor.mouseWheelZoom": true,
+    "editor.fontSize": 15
+  }
+}

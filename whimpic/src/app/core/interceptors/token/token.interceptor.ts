@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject = new BehaviorSubject<any>(null);
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authService.getJwtToken()) {
@@ -51,6 +52,10 @@ export class TokenInterceptor implements HttpInterceptor {
           this.isRefreshing = false;
           this.refreshTokenSubject.next(token.access);
           return next.handle(this.addToken(request, token.access));
+        }),
+        catchError((e) => {
+          this.router.navigate(['/login']);
+          return of(e);
         })
       );
     }
