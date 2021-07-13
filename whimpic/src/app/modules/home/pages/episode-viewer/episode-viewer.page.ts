@@ -49,8 +49,8 @@ export class EpisodeViewerPage implements OnInit, OnDestroy {
 
     const oneSecond = 1000;
     const oneMinute = oneSecond * 60;
-    this.timerSub = timer(oneSecond, oneMinute * 4).subscribe(() => {
-      this.authService.verifyToken().subscribe();
+    this.timerSub = timer(oneSecond, oneMinute * 3).subscribe(() => {
+      this.authService.refreshToken().subscribe();
     });
   }
 

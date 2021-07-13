@@ -11,15 +11,12 @@ export class AuthService {
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly END_POINT_URL = 'api/token/';
   private readonly VERIFY_URL = `${this.END_POINT_URL}verify/`;
-  private loggedUser: string;
-  private saveLocal: boolean;
 
   constructor(private http: HttpClient) {}
 
   login(user: { username: string; password: string }, saveLocal: boolean): Observable<boolean> {
-    this.saveLocal = saveLocal;
     return this.http.post<Token>(this.END_POINT_URL, user).pipe(
-      tap((tokens: Token) => this.doLoginUser(user.username, tokens, saveLocal)),
+      tap((tokens: Token) => this.doLoginUser(user.username, tokens)),
       mapTo(true),
       catchError((error) => {
         alert(error.error.detail);
@@ -28,19 +25,13 @@ export class AuthService {
     );
   }
 
-  doLoginUser(username: string, tokens: Token, saveLocal: boolean): void {
-    this.loggedUser = username;
-    this.storeTokens(tokens, saveLocal);
+  doLoginUser(username: string, tokens: Token): void {
+    this.storeTokens(tokens);
   }
 
-  storeTokens(tokens: Token, saveLocal: boolean): void {
-    if (saveLocal) {
-      localStorage.setItem(this.JWT_TOKEN, tokens.access);
-      localStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
-    } else {
-      sessionStorage.setItem(this.JWT_TOKEN, tokens.access);
-      sessionStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
-    }
+  storeTokens(tokens: Token): void {
+    sessionStorage.setItem(this.JWT_TOKEN, tokens.access);
+    sessionStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
   }
 
   logout(): Observable<any> {
@@ -56,13 +47,10 @@ export class AuthService {
   }
 
   doLogoutUser(): void {
-    this.loggedUser = null;
     this.removeTokens();
   }
 
   removeTokens(): void {
-    localStorage.removeItem(this.JWT_TOKEN);
-    localStorage.removeItem(this.REFRESH_TOKEN);
     sessionStorage.removeItem(this.JWT_TOKEN);
     sessionStorage.removeItem(this.REFRESH_TOKEN);
   }
@@ -76,17 +64,16 @@ export class AuthService {
   }
 
   storeJwtToken(jwt): void {
-    localStorage.setItem(this.JWT_TOKEN, jwt);
+    sessionStorage.setItem(this.JWT_TOKEN, jwt);
   }
 
   getJwtToken() {
-    const localToken = localStorage.getItem(this.JWT_TOKEN);
     const sessionToken = sessionStorage.getItem(this.JWT_TOKEN);
-    return localToken ? localToken : sessionToken;
+    return sessionToken;
   }
 
   private getRefreshToken() {
-    return localStorage.getItem(this.REFRESH_TOKEN) ? localStorage.getItem(this.REFRESH_TOKEN) : sessionStorage.getItem(this.REFRESH_TOKEN);
+    return sessionStorage.getItem(this.REFRESH_TOKEN);
   }
 
   isLoggedIn() {
