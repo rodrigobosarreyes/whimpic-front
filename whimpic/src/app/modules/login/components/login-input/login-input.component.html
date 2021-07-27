@@ -1,4 +1,4 @@
 <div class="wp-control-form">
-  <input [(ngModel)]="text" type="{{inputType}}" class="wp-control-form__input" autocomplete="off" [id]="inputId" placeholder=" ">
-  <label [for]="inputId" class="wp-control-form__label">{{ label }}</label>
+  <input [(ngModel)]="text" type="{{inputType}}" class="wp-control-form__input" [class.wp-control-form__invalid]="invalid" autocomplete="off" [id]="inputId" placeholder=" ">
+  <label [for]="inputId" class="wp-control-form__label" [class.wp-control-form__invalid]="invalid">{{ label }}</label>
 </div>

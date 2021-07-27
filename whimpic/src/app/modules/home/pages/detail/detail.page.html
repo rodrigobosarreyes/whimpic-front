@@ -4,7 +4,7 @@
     <div class="img-container">
       <img src="{{ manga.cover }}" alt="Cover">
     </div>
-    <button (click)="onClickRead()">{{ lastEpisode ? 'Continuar' : 'Leer'}}</button>
+    <button (click)="onClickRead()">{{ lastEpisode ? ('detail.button.continue' | translate) : ('detail.button.read' | translate) }}</button>
   </section>
   <section class="manga-detail">
     <p class="name">{{manga.name}}</p>
@@ -13,17 +13,17 @@
     </div>
     <p class="author">{{ manga.manga.author.name }}</p>
     <div class="extra-detail">
-      {{ manga.manga.createdAt | date: 'yyyy' }} - {{ manga.manga.finishedAt | date: 'yyyy' }} | {{ manga.manga.genre | translateMasterValue }} | {{ manga.seasonsCount }} Volúmenes
+      {{ manga.manga.createdAt | date: 'yyyy' }} - {{ manga.manga.finishedAt | date: 'yyyy' }} | {{ manga.manga.genre | translateMasterValue }} | {{ manga.seasonsCount }} {{'detail.label.volumes' | translate}}
     </div>
     <p class="description">
       {{ manga.description }}
     </p>
     <div class="publisher">
-      <span class="label">Editorial</span>
+      <span class="label">{{ 'detail.label.publisher' | translate }}</span>
       <span class="value">{{ manga.manga.publisher.name }}</span>
     </div>
     <div class="tags">
-      <span class="label">Tags</span>
+      <span class="label">{{ 'detail.label.tags' | translate }}</span>
       <span class="value">{{ manga.manga.tags[0] | translateMasterValue }}</span>
     </div>
   </section>
@@ -43,11 +43,15 @@
   </section>
 
   <ng-template #volumeNameTmpl let-volume>
-    {{
-      volume.season.name ? volume.season.seasonNumber + ': ' + volume.season.name : 'Volúmen ' + volume.season.seasonNumber
-    }}
+    <ng-container *ngIf="volume.season.name; else noNameVolume">
+      {{ volume.season.seasonNumber + ': ' + volume.season.name }}
+    </ng-container>
+
+    <ng-template #noNameVolume>
+      {{ 'detail.label.volume' | translate }} {{ volume.season.seasonNumber }}
+    </ng-template>
   </ng-template>
-  
+
   <section *ngIf="volumeSelected">
     <article *ngFor="let episode of volumeSelected.episodes" class="episode">
       <div class="img cover" (click)="onClickEpisode(volumeSelected.season.id, episode)">

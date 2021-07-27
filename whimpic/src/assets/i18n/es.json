@@ -17,9 +17,21 @@
   "home": {
     "section": {
       "recommended": "Recomendados",
-      "action": "Acción",
+    "action": "Acción",
       "fantasy": "Fantasía",
       "continue": "Continúa"
+    }
+  },
+  "detail": {
+    "button": {
+      "continue": "Continuar",
+      "read": "Leer"
+    },
+    "label": {
+      "volumes": "Volúmenes",
+      "volume": "Volúmen",
+      "publisher": "Editoral",
+      "tags": "Etiquetas"
     }
   }
 }

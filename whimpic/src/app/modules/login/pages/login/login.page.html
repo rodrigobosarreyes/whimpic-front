@@ -4,10 +4,14 @@
     <h1 translate>login.title</h1>
     <form class="mt-4 d-flex flex-column" (submit)="onClickLogin()">
       <div class="email-container mb-4">
-        <app-login-input inputId="email" inputType="text" label="{{ 'login.form.username' | translate }}" #usernameInput></app-login-input>
+        <app-login-input inputId="email" inputType="text" label="{{ 'login.form.username' | translate }}"
+        [invalid]="!valid"
+        #usernameInput></app-login-input>
       </div>
       <div class="passwd-container mb-2">
-        <app-login-input inputId="passwd" inputType="password" label="{{ 'login.form.password' | translate }}" #passwdInput></app-login-input>
+        <app-login-input inputId="passwd" inputType="password" label="{{ 'login.form.password' | translate }}"
+        [invalid]="!valid"
+        #passwdInput></app-login-input>
       </div>
       <div class="w-100 my-3">
         <app-wp-button btnType="submit" (btnClick)="onClickLogin()">{{ 'login.form.login' | translate }}</app-wp-button>

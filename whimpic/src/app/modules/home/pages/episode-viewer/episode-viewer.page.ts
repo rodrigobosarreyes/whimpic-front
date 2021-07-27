@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { CoreService } from 'src/app/core/services/core/core.service';
 import { IMangaEpisode, IMangaSeason } from '../../models/manga.model';
 import { MangaService } from '../../services/manga.service';
 
@@ -21,8 +22,10 @@ export class EpisodeViewerPage implements OnInit, OnDestroy {
   loading: boolean;
   private route: ActivatedRouteSnapshot;
   private timerSub: Subscription;
+  host: string;
+  language: string;
 
-  constructor(private mangaService: MangaService, activatedRoute: ActivatedRoute, private authService: AuthService) {
+  constructor(private mangaService: MangaService, activatedRoute: ActivatedRoute, private authService: AuthService, private coreService: CoreService) {
     this.route = activatedRoute.snapshot;
   }
 
@@ -31,6 +34,13 @@ export class EpisodeViewerPage implements OnInit, OnDestroy {
     const volumeId = Number(this.route.params.volumeId);
     this.currentScene = Number(this.route.params.scene);
     const episodeId = Number(this.route.params.episodeId);
+
+    this.language = this.coreService.getCurrentLanguage();
+
+    this.coreService
+      .getMangasHost()
+      .toPromise()
+      .then((host) => (this.host = host));
 
     this.mangaService.getManga(this.mangaId).subscribe((manga) => (this.mangaName = manga.originalName.toLowerCase().replace('!', '')));
 

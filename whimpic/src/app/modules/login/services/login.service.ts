@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { CoreService } from 'src/app/core/services/core/core.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private coreService: CoreService) {}
 
-  login(username: string, passwd: string, remember: boolean): void {
-    this.authService.login({ username: username, password: passwd }, remember).subscribe((success) => {
-      if (success) {
-        this.router.navigate(['/home']);
-      }
-    });
+  login(username: string, passwd: string, remember: boolean): Promise<boolean> {
+    return this.authService
+      .login({ username: username, password: passwd }, remember)
+      .pipe(
+        tap((valid) => {
+          if (valid) {
+            this.coreService.changeLanguage();
+          }
+        })
+      )
+      .toPromise();
   }
 
   logout(): void {

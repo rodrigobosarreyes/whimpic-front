@@ -10,6 +10,7 @@ export class LoginInputComponent {
   @Input() inputType: string;
   @Input() label: string;
   @Input() text: string;
+  @Input() invalid: boolean;
 
   @Output() textChange = new EventEmitter<string>();
 }

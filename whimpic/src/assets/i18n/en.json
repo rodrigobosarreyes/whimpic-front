@@ -3,7 +3,7 @@
     "appName": "Whimpic"
   },
   "login": {
-    "title": "Welcome a Whimpic",
+    "title": "Welcome to Whimpic",
     "form": {
       "username": "Username",
       "password": "Password",
@@ -17,9 +17,21 @@
   "home": {
     "section": {
       "recommended": "Recommended",
-      "action": "Acción",
-      "drama": "Fantasy",
+      "action": "Action",
+      "fantasy": "Fantasy",
       "continue": "Continue"
+    }
+  },
+  "detail": {
+    "button": {
+      "continue": "Continue",
+      "read": "Read"
+    },
+    "label": {
+      "volumes": "Volumes",
+      "volume": "Volume",
+      "publisher": "Publisher",
+      "tags": "Tags"
     }
   }
 }

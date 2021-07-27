@@ -7,9 +7,10 @@
   "settings": {
     "prettier.configPath": ".prettierrc.json",
     "terminal.integrated.cwd": "../whimpic-front/whimpic",
+    "editor.fontFamily": "Fira Code iScript",
     "editor.fontLigatures": true,
-    "editor.fontFamily": "Monoid",
     "editor.mouseWheelZoom": true,
-    "editor.fontSize": 15
+    "editor.fontSize": 15,
+    "workbench.colorTheme": "Dark++ Italic",
   }
 }

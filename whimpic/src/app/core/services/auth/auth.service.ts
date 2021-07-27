@@ -11,6 +11,7 @@ export class AuthService {
   private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
   private readonly END_POINT_URL = 'api/token/';
   private readonly VERIFY_URL = `${this.END_POINT_URL}verify/`;
+  private readonly USER_DATA = 'USER_DATA';
 
   constructor(private http: HttpClient) {}
 
@@ -18,8 +19,7 @@ export class AuthService {
     return this.http.post<Token>(this.END_POINT_URL, user).pipe(
       tap((tokens: Token) => this.doLoginUser(user.username, tokens)),
       mapTo(true),
-      catchError((error) => {
-        alert(error.error.detail);
+      catchError(() => {
         return of(false);
       })
     );
@@ -30,8 +30,14 @@ export class AuthService {
   }
 
   storeTokens(tokens: Token): void {
+    const rawData = JSON.parse(atob(tokens.access.split('.')[1]));
+    const userData = {
+      username: rawData.username,
+      language: rawData.language
+    };
     sessionStorage.setItem(this.JWT_TOKEN, tokens.access);
     sessionStorage.setItem(this.REFRESH_TOKEN, tokens.refresh);
+    sessionStorage.setItem(this.USER_DATA, JSON.stringify(userData));
   }
 
   logout(): Observable<any> {
@@ -40,7 +46,6 @@ export class AuthService {
       mapTo(true),
       catchError((error) => {
         console.error(error);
-        alert(error.error.detail);
         return of(false);
       })
     );
@@ -53,6 +58,7 @@ export class AuthService {
   removeTokens(): void {
     sessionStorage.removeItem(this.JWT_TOKEN);
     sessionStorage.removeItem(this.REFRESH_TOKEN);
+    sessionStorage.removeItem(this.USER_DATA);
   }
 
   refreshToken(): Observable<any> {
